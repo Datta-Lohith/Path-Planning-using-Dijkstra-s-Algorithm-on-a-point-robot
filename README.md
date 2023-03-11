@@ -36,4 +36,5 @@
 1. Output.mp4- Output video illustrating the animation of the explored nodes and the path between start node and end node
 
 ## Sample output
-#
+#![Video Ouput](https://user-images.githubusercontent.com/126642779/224514903-523e45cf-98d7-4ff4-8e58-5b730b0d2ce3.png)
+
