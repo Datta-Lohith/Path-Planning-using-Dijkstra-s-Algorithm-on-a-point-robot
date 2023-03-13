@@ -221,8 +221,8 @@ def Actions(node):
 def tree(end_node):
     global nodes
     open_list=[]
-    closed_list=[]
-    explored_nodes=[]
+    closed_list=set()                   # Lists consume more time than sets
+    explored_nodes=set()                # Lists consume more time than sets
     heapq.heappush(open_list,(0,start_node))
     while open_list:
         current_distance,current_node=heapq.heappop(open_list)
