@@ -227,8 +227,10 @@ def tree(end_node):
     while open_list:
         current_distance,current_node=heapq.heappop(open_list)
         if current_node not in explored_nodes:
-            explored_nodes.append(current_node)
-        closed_list.append(current_node)
+        # explored_nodes.append(current_node)           #List
+            explored_nodes.add(current_node)            #Set
+        # closed_list.append(current_node)              #List
+        closed_list.add(current_node)                   #Set
         
         if current_node==end_node:
             return current_node
