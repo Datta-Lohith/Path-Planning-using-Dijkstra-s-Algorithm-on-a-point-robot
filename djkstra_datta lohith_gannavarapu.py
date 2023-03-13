@@ -241,7 +241,8 @@ def tree(end_node):
                 if new_node not in explored_nodes:
                     new_cost=current_distance+cost
                     heapq.heappush(open_list,(new_cost,new_node))
-                    explored_nodes.append(new_node)
+                    # explored_nodes.append(new_node)
+                    explored_nodes.add(new_node)
                     insert_node(new_cost,new_node,current_node)
                 else:
                     for i in range(len(open_list)):
