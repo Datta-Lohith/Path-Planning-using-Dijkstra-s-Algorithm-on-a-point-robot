@@ -70,7 +70,11 @@ def create_map():
 # Function to insert a node into the nodes dictionary
 def insert_node(cost=None,node=None,parent=None):    
     if len(nodes)==0:
-        nodes.update({start_node:[None,0]})
+        # Inserting obstacle nodes into the nodes dictionary
+        for i in range(600):
+            for j in range(250):
+                if obs_map[j][i]!=255:
+                    nodes.update({(i,j,0):[None,float('inf')]})
     else:
         nodes.update({node:[parent,cost]})
         
@@ -291,24 +295,21 @@ def get_inputs():
     while check_input:
         s_node=input("Note:'(5,5) is the starting point due to clearance on the walls'\nEnter the start node in the format 0 1 for (0,1): ")
         x,y=s_node.split()
-        if int(x)>600 or int(y)>250 or int(x)<-1 or int(y)<-1:
+        if int(x)>600 or int(y)>250 or int(x)<0 or int(y)<0:
             print("Please enter valid coordinates.")
-        if (int(x),int(y)) in nodes.keys():
-            if (int(x),int(y))!=(5,5):
-                print("Please enter a valid start node(Node in obstacle place).")
-            else:
-                check_input=False
-                start_node=(int(x),int(y))                
+        elif (int(x),int(y)) in nodes.keys():
+            print("Please enter a valid start node(Node in obstacle place).")             
         else:
             check_input=False
             start_node=(int(x),int(y))
+            insert_node(0,start_node,None)
     check_input=True
     while check_input:
         f_node=input("Note:'(595,245) is the ending point due to clearance on the walls'\nEnter the end node in the format 0 1 for (0,1) : ")
         x,y=f_node.split()
-        if int(x)>600 or int(y)>250 or int(x)<-1 or int(y)<-1 or (int(x),int(y))==start_node:
+        if int(x)>600 or int(y)>250 or int(x)<0 or int(y)<0 or (int(x),int(y))==start_node:
             print("Please enter valid coordinates.")
-        if (int(x),int(y)) in nodes.keys():
+        elif (int(x),int(y)) in nodes.keys():
             print("Please enter a valid end node(Node in obstacle place).")
         else:
             check_input=False
@@ -323,10 +324,6 @@ if __name__ == "__main__":
     
     # Inserting obstacle nodes into the nodes dictionary
     insert_node()
-    for i in range(600):
-        for j in range(250):
-            if obs_map[j][i]==0:
-                insert_node(float('inf'),(i,j),None)
 
     # Getting user inputs
     get_inputs()
